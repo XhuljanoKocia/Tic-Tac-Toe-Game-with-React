@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function Player({ initialName, symbol, isActive }) {
+export default function Player({ initialName, symbol, isActive, onChangeName }) {
     const [playerName, setPlayerName] = useState(initialName);
     const [isEditing, setIsEditing] = useState(false);
 
@@ -8,6 +8,9 @@ export default function Player({ initialName, symbol, isActive }) {
         setIsEditing((editing) => !editing); // => with a function, react schedules a state update which is immediately reflected
         // setIsEditing(!isEditing); // => schedules a state update to true, but is not immediately reflected
         // setIsEditing(!isEditing); => in this case this will also be true, because the state update is scheduled and not immediately reflected
+        if (isEditing) {
+            onChangeName(symbol, playerName);
+        }
     }
 
     function handleChange(event) {
